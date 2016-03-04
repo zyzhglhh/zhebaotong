@@ -22,9 +22,6 @@
     <!-- Allow iframe to https://cordova.apache.org/ -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src 'self' https://cordova.apache.org"> -->
 
-    <!-- 下面的 base href 在App编译(在线: PhoneGap Build; 本地: `$ cordova build # 最好在 $ cordova platform add ... 之前就去掉`)成 hybrid App 时必须注释掉, 否则程序就找不到入口 -->
-    <base href="/zbtong/"><!-- 如果在根目录下, 则设置为href="/"(这里服务器设置了静态虚拟目录'/app', 所以不要设置为'/app/www/'); 是angularjs 1.3以后的新特性, https://docs.angularjs.org/error/$location/nobase; 设置了base href后, 所有的绝对路径(如href='/aboutUs')还是都以服务器根目录为前缀, 所以, app的.html模板中所有的链接都要采用相对链接的方式(如href='aboutUs'), $stateProvider.state中的url还是要加左边的反斜杠 -->
-
     <title>浙保通</title>
 
     <!-- ionic css -->
