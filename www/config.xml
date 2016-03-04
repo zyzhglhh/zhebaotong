@@ -34,30 +34,30 @@
   <preference name="SplashScreen" value="screen"/>
   <preference name="SplashScreenDelay" value="3000"/>
   <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
-  <gap:plugin name="org.apache.cordova.battery-status" source="npm"/>
-  <gap:plugin name="org.apache.cordova.camera" source="npm"/>
-  <gap:plugin name="org.apache.cordova.media-capture" source="npm"/>
-  <gap:plugin name="org.apache.cordova.console" source="npm"/>
-  <gap:plugin name="org.apache.cordova.contacts" source="npm"/>
-  <gap:plugin name="org.apache.cordova.device" source="npm"/>
-  <gap:plugin name="org.apache.cordova.device-motion" source="npm"/>
-  <gap:plugin name="org.apache.cordova.device-orientation" source="npm"/>
-  <gap:plugin name="org.apache.cordova.dialogs" source="npm"/>
-  <gap:plugin name="org.apache.cordova.file" source="npm"/>
-  <gap:plugin name="org.apache.cordova.file-transfer" source="npm"/>
-  <gap:plugin name="org.apache.cordova.geolocation" source="npm"/>
-  <gap:plugin name="org.apache.cordova.globalization" source="npm"/>
-  <gap:plugin name="org.apache.cordova.inappbrowser" source="npm"/>
-  <gap:plugin name="org.apache.cordova.media" source="npm"/>
-  <gap:plugin name="org.apache.cordova.network-information" source="npm"/>
-  <gap:plugin name="org.apache.cordova.splashscreen" source="npm"/>
-  <gap:plugin name="org.apache.cordova.vibration" source="npm"/>
-  <gap:plugin name="org.apache.cordova.statusbar" source="npm"/>
-  <gap:plugin name="com.phonegap.plugins.barcodescanner" source="npm"/>
-  <gap:plugin name="nl.x-services.plugins.socialsharing" source="npm"/>
-  <gap:plugin name="com.ionic.keyboard" source="npm"/>
-  <gap:plugin name="com.phonegap.plugins.pushplugin" source="npm"/>
-  <gap:plugin name="cordova-plugin-whitelist" source="npm" gap:platform="android"/>
+  <!-- <gap:plugin name="org.apache.cordova.battery-status" source="npm"/> -->
+  <gap:plugin name="cordova-plugin-camera" source="npm" />
+  <!-- <gap:plugin name="org.apache.cordova.media-capture" source="npm"/> -->
+  <!-- <gap:plugin name="org.apache.cordova.console" source="npm"/> -->
+  <!-- <gap:plugin name="org.apache.cordova.contacts" source="npm"/> -->
+  <gap:plugin name="cordova-plugin-device" source="npm" />
+  <!-- <gap:plugin name="org.apache.cordova.device-motion" source="npm"/> -->
+  <!-- <gap:plugin name="org.apache.cordova.device-orientation" source="npm"/> -->
+  <!-- <gap:plugin name="org.apache.cordova.dialogs" source="npm"/> -->
+  <gap:plugin name="cordova-plugin-file" source="npm" />
+  <gap:plugin name="cordova-plugin-file-transfer" source="npm" />
+  <!-- <gap:plugin name="org.apache.cordova.geolocation" source="npm"/> -->
+  <!-- <gap:plugin name="cordova-plugin-globalization" source="npm"/> -->
+  <!-- <gap:plugin name="org.apache.cordova.inappbrowser" source="npm"/> -->
+  <!-- <gap:plugin name="org.apache.cordova.media" source="npm"/> -->
+  <gap:plugin name="cordova-plugin-network-information" source="npm" />
+  <gap:plugin name="cordova-plugin-splashscreen" source="npm" />
+  <!-- <gap:plugin name="org.apache.cordova.vibration" source="npm"/> -->
+  <gap:plugin name="cordova-plugin-statusbar" source="npm" />
+  <gap:plugin name="phonegap-plugin-barcodescanner" source="npm" />
+  <!-- <gap:plugin name="nl.x-services.plugins.socialsharing" source="npm"/> -->
+  <gap:plugin name="ionic-plugin-keyboard" source="npm"/>
+  <!-- <gap:plugin name="com.phonegap.plugins.pushplugin" source="npm"/> -->
+  <gap:plugin name="cordova-plugin-whitelist" source="npm" gap:platform="android" />
   <icon src="resources\android\icon\drawable-xhdpi-icon.png"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
