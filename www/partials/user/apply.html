@@ -10,7 +10,7 @@
     <form class="form-horizontal w5c-form" w5c-form-validate="" w5c-submit="actions.apply()" role="form" novalidate name="form_medi_check">
       <ion-list>
         <ion-item class="no-padding">
-          <ion-slide-box delegate-handle="inceType" show-pager="false" does-continue="true" class="item-height" auto-play="false" ng-if="config.mediTypes">
+          <ion-slide-box delegate-handle="inceType" show-pager="false" does-continue="true" class="item-height" auto-play="false" ng-if="isMore">
             <ion-slide ng-repeat="amountList in config.mediTypes">
               <!-- <ion-list> -->
                 <ion-item class="item-icon-right">
@@ -23,6 +23,11 @@
               <!-- </ion-list> -->
             </ion-slide>
           </ion-slide-box>
+          <div class="input-label" ng-if="isOne">
+            <span ng-repeat="amountItem in meidTypeOne">
+              &nbsp;&nbsp;&nbsp;&nbsp;{{amountItem.amountText}}: {{amountItem.available | currency: '￥'}}
+            </span>
+          </div>
         </ion-item>
         <ion-item class="item-input item-select">
           <span class="input-label">保险类型:</span>

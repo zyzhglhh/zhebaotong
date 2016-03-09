@@ -190,6 +190,7 @@ app
                 }
             }
         })
+
         .state('user.settings', {
             url: '/settings',
             views: {

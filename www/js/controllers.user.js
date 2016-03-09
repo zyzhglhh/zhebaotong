@@ -30,7 +30,7 @@ angular.module('yiyangbao.controllers.user', [])
         $q.all([deferredInfo.promise, deferredBarcode.promise]).then(function (data) { 
 
             $scope.accountInfo.barcode = data[1] + ')|(' + (data[0].amountInfo.available || 0);
-            
+            console.log($scope.accountInfo.barcode);
             deferred.resolve();
         }, function (errors) {
             console.log(errors);
@@ -42,7 +42,15 @@ angular.module('yiyangbao.controllers.user', [])
 
         var AccInfo = JSON.parse(Storage.get('AccInfo'));
         var userId = AccInfo.user._id;
-        var ince = AccInfo.ince;
+
+        // 考虑到一个用户有多保单的情况下,浙保通下 inceType = 5 医疗补充保险金额可以进行线下消费,把这条保单筛选出来
+        var ince = AccInfo.inces.filter(function(ince){
+            if ( ince.inceType === '5') {
+                return true;
+            }
+        })[0] || {};
+
+
         var socketData = data;
         if (actions === 'check') {
             PageFunc.prompt('消费金额: ' + socketData.money + '元', '请输入支付密码').then(function (res) {
@@ -68,8 +76,10 @@ angular.module('yiyangbao.controllers.user', [])
                     Consumption.insertOne(cons).then(function (data) {
                         $scope.error.payError = '您消费' + data.results.cons.money + '元!'; 
                         Socket.default.emit('pay bill', {mediSocketId: socketData.mediSocketId, msg: '用户支付' + data.results.cons.money + '元!'}, 'paid');
-                        $scope.accountInfo.ince.available = data.results.ince.available;
-                        $scope.accountInfo.barcode = $scope.accountInfo.barcode.split(')|(')[0] + ')|(' + data.results.ince.available;
+                        $scope.accountInfo.amountInfo.available = data.results.amountInfo.available;
+                        $scope.accountInfo.amountInfo.consumed = data.results.amountInfo.consumed;
+                        $scope.accountInfo.amountInfo.freeze = data.results.amountInfo.freeze;
+                        $scope.accountInfo.barcode = $scope.accountInfo.barcode.split(')|(')[0] + ')|(' + data.results.amountInfo.available;
                     }, function (err) {
                         $scope.error.payError = err.data; 
                         Socket.default.emit('pay bill', {mediSocketId: socketData.mediSocketId, msg: err.data}, 'payError');
@@ -154,8 +164,10 @@ angular.module('yiyangbao.controllers.user', [])
                     for(var j = 0; j < data.inces[i].amountDetails.length; j++ ){
 
                         $scope.config.mediTypes[ data.inces[i].inceType ].push(data.inces[i].amountDetails[j]);
+                        $scope.meidTypeOne = $scope.config.mediTypes[ data.inces[i].inceType ];
                     }
-                    
+                    $scope.isMore = Object.keys($scope.config.mediTypes).length > 1;
+                    $scope.isOne = Object.keys($scope.config.mediTypes).length == 1;
                     inces[data.inces[i].inceType] = {
                         incePolicyId: data.inces[i]._id,
                         unitId : data.inces[i].unitId._id,
@@ -611,6 +623,7 @@ angular.module('yiyangbao.controllers.user', [])
 }])
 .controller('userActivities', ['$scope', function ($scope) {
 }])
+
 .controller('userMine', ['$scope', '$ionicPopup', '$q', '$ionicActionSheet', '$cordovaCamera', '$cordovaFileTransfer', 'Storage', 'User', '$timeout', 'PageFunc', 'CONFIG', 'Token', '$stateParams', function ($scope, $ionicPopup, $q, $ionicActionSheet, $cordovaCamera, $cordovaFileTransfer, Storage, User, $timeout, PageFunc, CONFIG, Token, $stateParams) {
     $scope.config = {
         genders: CONFIG.genders,
@@ -902,6 +915,7 @@ angular.module('yiyangbao.controllers.user', [])
     article.catname= articles[$stateParams.typeid];
     article.title = '杭州颐养网络科技有限公司';
 })
+
 .controller('userYljBalanceCtrl', ['$scope', 'Insurance', function($scope, Insurance) {
 
     var initYljInfo = function() {
@@ -938,6 +952,7 @@ angular.module('yiyangbao.controllers.user', [])
 
     initYljInfo();
 
+
     $scope.actions = {
         doRefresh: function() {
             initYljInfo();
@@ -947,6 +962,7 @@ angular.module('yiyangbao.controllers.user', [])
 
 
 }])
+
 .controller('userYiBalanceCtrl', ['$scope', 'Insurance', function($scope, Insurance) {
 
     var initBcyljInfo = function() {
@@ -989,4 +1005,5 @@ angular.module('yiyangbao.controllers.user', [])
 
     initBcyljInfo();
 }])
+
 ;
