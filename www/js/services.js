@@ -397,8 +397,8 @@ angular.module('yiyangbao.services', ['ngResource'])
       self.login($scope);
     };
     $scope.login = {
-      username: '1',
-      password: 'a',
+      username: '',
+      password: '',
       rememberme: true
     };
   };
