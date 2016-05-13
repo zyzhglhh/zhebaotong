@@ -930,13 +930,18 @@ angular.module('yiyangbao.controllers.user', [])
                 sumInterest: 0
             };
             for(var i = 0; i < inceItems.length; i++) {
-                
-                if (inceItems[i].detailType.substring(inceItems[i].detailType.length -1) != '2') {
+                inceItems[i].month = new Date(inceItems[i].month);
+                inceItems[i].startTime = new Date(inceItems[i].startTime);
+                inceItems[i].createTime = new Date(inceItems[i].createTime);
+                var dt = inceItems[i].detailType.substring(inceItems[i].detailType.length -1);
+                if ( dt == '1' || dt == '3' || dt== '4') {  //统计投保与支出
                     total.sumUnitAmount += parseFloat(inceItems[i].unitPrice);
                     total.sumProfileAmount += parseFloat(inceItems[i].price);
                     total.sumUnitInterest += parseFloat(inceItems[i].cycleUnitInterest);
                     total.sumInterest += parseFloat(inceItems[i].cycleInterest);
-                    inceItems[i].month = new Date(inceItems[i].month);
+                    
+                    inceItems[i].unitInterestAmount = parseFloat(inceItems[i].unitPrice) + parseFloat(inceItems[i].cycleUnitInterest);
+                    inceItems[i].interestAmount = parseFloat(inceItems[i].price) + parseFloat(inceItems[i].cycleInterest);
                 }
                 
             }
@@ -977,6 +982,7 @@ angular.module('yiyangbao.controllers.user', [])
             for(var i = 0; i < data.results.inceItems.length; i++) {
                 key = data.results.inceItems[i].detailType;
                 data.results.inceItems[i].month = new Date(data.results.inceItems[i].month);
+                data.results.inceItems[i].startTime = new Date(data.results.inceItems[i].startTime);
                 inceItems[ key ] = inceItems[ key ] || {list: [], key: key, title: data.results.inceItems[i].detailTitle};
                 inceItems[ key ].list.push(data.results.inceItems[i]);
 
