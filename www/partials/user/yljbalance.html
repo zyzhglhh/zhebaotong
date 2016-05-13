@@ -20,21 +20,21 @@
         	<div ng-repeat="inceItem in inceItems">
                 <div ng-if="inceItem.detailType.substring(inceItem.detailType.length - 1) != '2'">
             		<div class="item item-divider">
-    				    {{inceItem.month | date: 'yyyy年MM月'}}{{inceItem.detailTitle}} ({{inceItem.balanceDay}})天
+    				    {{inceItem.createTime | date: 'yyyy年MM月dd日'}}{{inceItem.detailTitle}} 
     				</div>
     				<a class="item item-icon-right">
     					单位缴费 
-    					<span class="badge badge-assertive">{{inceItem.unitPrice | number:2}}</span>
+    					<span class="badge badge-assertive">{{inceItem.originalUnitPrice | number:2}}</span>
     				</a>
     				<a class="item item-icon-right">
     					个人缴费 
-    					<span class="badge badge-assertive">{{inceItem.price | number:2}}</span>
+    					<span class="badge badge-assertive">{{inceItem.originalPrice | number:2}}</span>
     			    </a>
                 </div>
 
-                <div ng-if="inceItem.detailType.substring(inceItem.detailType.length - 1) === '2'">
+                <!-- <div ng-if="inceItem.detailType.substring(inceItem.detailType.length - 1) === '2'">
                     <div class="item item-divider">
-                        {{inceItem.month | date: 'yyyy年MM月'}}{{inceItem.detailTitle}} 结算周期
+                        {{inceItem.startTime | date: 'yyyy年MM月dd日'}}{{inceItem.detailTitle}} 结算周期
                     </div>
                     <a class="item item-icon-right">
                         单位本金 {{inceItem.unitPrice | number:2}}
@@ -44,7 +44,7 @@
                         个人本金 {{inceItem.price | number:2}}
                         <span class="badge badge-assertive">{{inceItem.cycleInterest | number:2}}</span>
                     </a>
-                </div>
+                </div> -->
         	</div>
 
         </ion-list>
