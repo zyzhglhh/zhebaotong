@@ -12,7 +12,7 @@
             <div ng-repeat="inceItem in inceItems">
                 <div class="item item-divider">{{inceItem.title}}</div>
                 <a ng-if="inceItem.key.substring(inceItem.key.length - 1) != '2'" class="item item-icon-right" ng-repeat="item in inceItem.list">
-                    {{item.startTime | date: 'yyyy年MM月dd日'}}缴费金额
+                    {{item.month | date: 'yyyy年MM月'}}缴费金额
                     <span class="badge badge-assertive">{{item.price | number:2}}</span>
                 </a>
                 
