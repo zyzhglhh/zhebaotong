@@ -1,0 +1,20 @@
+<ion-view view-title="{{title}}">
+  <ion-content>
+  <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+  	<ion-list>
+  		<div ng-repeat="inceItem in inceYljDetails">
+          <div class="item item-divider">
+    				    {{inceItem.createTime | date: 'yyyy年MM月dd日'}}{{inceItem.detailTitle}} 
+    				</div>
+    				<a class="item item-icon-right">
+    					单位缴费 
+    					<span class="badge badge-assertive">{{inceItem.originalUnitPrice | number:2}}</span>
+    				</a>
+    				<a class="item item-icon-right">
+    					个人缴费 
+    					<span class="badge badge-assertive">{{inceItem.originalPrice | number:2}}</span>
+    			    </a>
+      </div>
+  	</ion-list>
+  </ion-content>
+ </ion-view>

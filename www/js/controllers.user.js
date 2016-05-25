@@ -917,10 +917,12 @@ angular.module('yiyangbao.controllers.user', [])
 })
 
 .controller('userYljBalanceCtrl', ['$scope', 'Insurance', function($scope, Insurance) {
-
+    
     var initYljInfo = function() {
         Insurance.getYljInfo({}).then(function(data) {
             $scope.ince = data.results;
+            $scope.yljDetails = [];
+
             var inceItems = data.results.inceItems;
             var sumUnitAmount = 0, sumProfileAmount = 0;
             var total = {
@@ -934,7 +936,7 @@ angular.module('yiyangbao.controllers.user', [])
                 inceItems[i].startTime = new Date(inceItems[i].startTime);
                 inceItems[i].createTime = new Date(inceItems[i].createTime);
                 var dt = inceItems[i].detailType.substring(inceItems[i].detailType.length -1);
-                if ( dt == '1' || dt == '3' || dt== '4') {  //统计投保与支出
+                if ( dt == '1' || dt == '3' || dt== '4') {  //统计投保与支出 1=投保 2=利息 3=支出 4=分红
                     total.sumUnitAmount += parseFloat(inceItems[i].unitPrice);
                     total.sumProfileAmount += parseFloat(inceItems[i].price);
                     total.sumUnitInterest += parseFloat(inceItems[i].cycleUnitInterest);
@@ -942,6 +944,17 @@ angular.module('yiyangbao.controllers.user', [])
                     
                     inceItems[i].unitInterestAmount = parseFloat(inceItems[i].unitPrice) + parseFloat(inceItems[i].cycleUnitInterest);
                     inceItems[i].interestAmount = parseFloat(inceItems[i].price) + parseFloat(inceItems[i].cycleInterest);
+
+                    if (typeof $scope.yljDetails[dt] === 'undefined') {
+                        $scope.yljDetails[dt] = [];
+                    }
+
+                    $scope.yljDetails[dt].push({
+                        originalUnitPrice: inceItems[i].originalUnitPrice,
+                        originalPrice: inceItems[i].originalPrice,
+                        createTime: new Date(inceItems[i].createTime),
+                        detailTitle: inceItems[i].detailTitle
+                    });
                 }
                 
             }
@@ -968,6 +981,19 @@ angular.module('yiyangbao.controllers.user', [])
 
 }])
 
+
+.controller('userYljBalanceItemCtrl', ['$scope', '$stateParams', function($scope, $stateParams){
+    
+    $scope.title = $stateParams.title;
+    $scope.inceYljDetails= $stateParams.data;
+
+    $scope.actions = {
+        doRefresh: function() {
+            $scope.$broadcast('scroll.refreshComplete');
+        }
+    }
+
+}])
 .controller('userYiBalanceCtrl', ['$scope', 'Insurance', function($scope, Insurance) {
 
     var initBcyljInfo = function() {

@@ -227,6 +227,19 @@ app
                 }
             }
         })
+        .state('user.yljbalanceitem', {
+            url: '/yljbalanceitem',
+            views: {
+                'userHome': {
+                    templateUrl: 'partials/user/yljbalanceitem.html',
+                    controller: 'userYljBalanceItemCtrl'
+                }
+            },
+            params:{
+                data:null,
+                title: null,
+            }
+        })
         .state('user.yibalance', {
             url: '/yibalance',
             views: {

@@ -1,0 +1,54 @@
+<ion-view view-title="养老金余额查询">
+    <ion-content>
+
+        <ion-refresher pulling-text="释放刷新..." refreshing-text="正在刷新..." on-refresh="actions.doRefresh()"></ion-refresher>
+        <ion-list>
+        	<div class="item item-divider">
+			    投保总余款 
+			</div>
+        	<div class="item item-icon-left">
+        		<i class="icon ion-ios-people-outline"></i>
+        		单位缴费账户余额
+        		<span class="badge badge-assertive">{{(ince.total.sumUnitInterest + ince.total.sumUnitAmount) | number:2}}</span>
+        	</div>
+        	<div class="item item-icon-left">
+        		<i class="icon ion-ios-person-outline"></i>
+        		个人缴费账户余额
+        		<span class="badge badge-assertive">{{(ince.total.sumInterest + ince.total.sumProfileAmount) | number:2}}</span>
+        	</div>
+
+        	<div ng-repeat="inceItem in inceItems">
+                <div ng-if="inceItem.detailType.substring(inceItem.detailType.length - 1) != '2'">
+            		<div class="item item-divider">
+    				    {{inceItem.createTime | date: 'yyyy年MM月dd日'}}{{inceItem.detailTitle}} 
+    				</div>
+    				<a class="item item-icon-right">
+    					单位缴费 
+    					<span class="badge badge-assertive">{{inceItem.originalUnitPrice | number:2}}</span>
+    				</a>
+    				<a class="item item-icon-right">
+    					个人缴费 
+    					<span class="badge badge-assertive">{{inceItem.originalPrice | number:2}}</span>
+    			    </a>
+                </div>
+
+                <!-- <div ng-if="inceItem.detailType.substring(inceItem.detailType.length - 1) === '2'">
+                    <div class="item item-divider">
+                        {{inceItem.startTime | date: 'yyyy年MM月dd日'}}{{inceItem.detailTitle}} 结算周期
+                    </div>
+                    <a class="item item-icon-right">
+                        单位本金 {{inceItem.unitPrice | number:2}}
+                        <span class="badge badge-assertive">{{inceItem.cycleUnitInterest | number:2}}</span>
+                    </a>
+                    <a class="item item-icon-right">
+                        个人本金 {{inceItem.price | number:2}}
+                        <span class="badge badge-assertive">{{inceItem.cycleInterest | number:2}}</span>
+                    </a>
+                </div> -->
+        	</div>
+
+        </ion-list>
+
+
+    </ion-content>
+</ion-view>
